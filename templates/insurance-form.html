@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up for Insurance</title>
+    <style>
+        /* General Body Styles */
+        body {
+            font-family: 'Verdana', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #99bad7, #8aaacd, #546e8b);
+            color: #333;
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background: linear-gradient(to right, #ffffff, #b8c9ec);
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 50px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav:hover {
+            background: linear-gradient(to left, #ffffff, #b8c9ec);
+        }
+
+        nav .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #0056b3;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        nav .logo:hover {
+            transform: scale(1.05);
+            color: #003366;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #0056b3;
+            font-size: 1.2rem;
+            font-weight: 500;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #0056b3;
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        nav ul li a:hover {
+            color: #003366;
+            background: rgba(0,86,179,0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Insurance Category Section */
+        .insurance-category {
+            text-align: center;
+            margin: 40px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            max-width: 800px;
+            transition: all 0.3s ease;
+        }
+
+        .insurance-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .insurance-category h1 {
+            font-size: 3rem;
+            color: #0056b3;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .insurance-category p {
+            font-size: 1.2rem;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Terms and Conditions Section */
+        .terms-conditions {
+            margin: 40px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            max-width: 800px;
+            transition: all 0.3s ease;
+        }
+
+        .terms-conditions:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .terms-conditions h2 {
+            font-size: 2rem;
+            color: #0056b3;
+            margin-bottom: 20px;
+        }
+
+        .terms-conditions ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+
+        .terms-conditions ul li {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* Form Container */
+        .form-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .form-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-container h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #0056b3;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-container h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, #0056b3, #00a0b3);
+            border-radius: 2px;
+        }
+
+        /* Form Sections */
+        .form-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-section.personal-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .form-section.car-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .form-section.deductible {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-section.file-upload {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .form-group label {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #0056b3;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 12px;
+            border: 2px solid #0056b3;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #00a0b3;
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 0 4px 8px rgba(0, 86, 179, 0.2);
+        }
+
+        .form-group.file-upload {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-group.file-upload input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .form-group.file-upload .custom-file-upload {
+            padding: 12px;
+            border: 2px dashed #0056b3;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            text-align: center;
+            color: #0056b3;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .form-group.file-upload:hover .custom-file-upload {
+            background: rgba(255, 255, 255, 1);
+            border-color: #00a0b3;
+        }
+
+        /* Submit Button */
+        .form-group.submit-button {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .form-group.submit-button button {
+            padding: 20px 40px;
+            background: linear-gradient(135deg, #0056b3, #00a0b3);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-group.submit-button button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 86, 179, 0.3);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .form-section.personal-details {
+                grid-template-columns: 1fr;
+            }
+
+            .form-section.car-details {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <script>
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        function displayInsuranceCategory() {
+            const packageType = getQueryParam('package');
+            const insuranceCategory = document.getElementById('insurance-category');
+            if (packageType) {
+                insuranceCategory.innerHTML = `
+                    <h1>${packageType}</h1>
+                    <p>${getPackageDescription(packageType)}</p>
+                `;
+            } else {
+                insuranceCategory.innerHTML = `<h1>Insurance Package Not Selected</h1>`;
+            }
+        }
+
+        function getPackageDescription(packageType) {
+            switch (packageType) {
+                case 'Basic Third-Party Insurance':
+                    return 'Covers damages to third-party property, injury, or death.';
+                case 'Own Damage Insurance':
+                    return 'Covers damage to your vehicle due to accidents, fire, theft, and natural disasters.';
+                case 'Comprehensive Insurance':
+                    return 'Covers own vehicle damage, third-party liabilities, theft, fire, and natural calamities.';
+                default:
+                    return 'Please select a valid insurance package.';
+            }
+        }
+
+        window.onload = function() {
+            displayInsuranceCategory();
+            document.getElementById('insurance-type').value = getQueryParam('package') || "Not Selected";
+        };
+    </script>
+</head>
+<body>
+    <nav>
+        <div class="logo">IntelliClaim</div>
+        <ul>
+            <li><a href="{{ url_for('home', user_id=session.get('user_id')) }}">Home</a></li>
+            <li><a href="{{ url_for('about', user_id=session.get('user_id')) }}">About Us</a></li>
+            <li><a href="{{ url_for('insurance_form', user_id=session.get('user_id')) }}">Claim Insurance</a></li>
+            <li><a href="{{ url_for('login') }}">Sign In</a></li>
+        </ul>
+    </nav>
+
+    <!-- Insurance Category Section -->
+    <div class="insurance-category" id="insurance-category">
+        <!-- Dynamically populated by JavaScript -->
+    </div>
+
+    <!-- Terms and Conditions Section -->
+    <div class="terms-conditions">
+        <h2>Terms and Conditions</h2>
+        <ul>
+            <li>Notify the insurer within 24 hours of any incident.</li>
+            <li>Submit all required documents, including policy papers, damage images, and FIR (if applicable).</li>
+            <li>An inspection will be conducted by the insurer.</li>
+            <li>Approval of claims is based on policy terms.</li>
+            <li>Cashless repairs are available at partner garages, or reimbursement will be provided.</li>
+        </ul>
+    </div>
+
+    <!-- Form Container -->
+    <div class="form-container">
+        <h2>Sign Up for Insurance</h2>
+        <form action="/submit_insurance" method="POST">
+            <!-- Hidden fields for user_id and insurance_type -->
+            
+    <input type="hidden" name="user_id" value="{{ user_id }}">
+    <input type="hidden" name="insurance_type" value="{{ package }}">
+            <!-- Personal Details Section -->
+            <div class="form-section personal-details">
+                <div class="form-group">
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+            </div>
+
+            <!-- Car Details Section -->
+            <div class="form-section car-details">
+                <div class="form-group">
+                    <label for="car-make">Car Make:</label>
+                    <input type="text" id="car-make" name="car_make" required>
+                </div>
+                <div class="form-group">
+                    <label for="car-model">Car Model:</label>
+                    <input type="text" id="car-model" name="car_model" required>
+                </div>
+                <div class="form-group">
+                    <label for="car-year">Car Year:</label>
+                    <input type="number" id="car-year" name="car_year" required>
+                </div>
+                <div class="form-group">
+                    <label for="car-registration">Car Registration Number:</label>
+                    <input type="text" id="car-registration" name="car_registration" required>
+                </div>
+            </div>
+
+            <!-- Deductible Section -->
+            <div class="form-section deductible">
+                <div class="form-group">
+                    <label for="deductible">Choose Deductible Amount:</label>
+                    <select id="deductible" name="deductible" required>
+                        <option value="5000">₹5,000</option>
+                        <option value="10000">₹10,000</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- File Upload Section -->
+            <div class="form-section file-upload">
+                <div class="form-group file-upload">
+                    <label>Upload Car Images (Front, Back, Sides, Additional):</label>
+                    <input type="file" name="car_images" multiple required>
+                    <div class="custom-file-upload">Click to Upload</div>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-group submit-button">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

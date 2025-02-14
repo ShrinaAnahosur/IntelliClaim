@@ -10,10 +10,10 @@
     <nav>
         <div class="logo">IntelliClaim</div>
         <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/about">About Us</a></li>
-            <li><a href="/claim">Claim Insurance</a></li>
-            <li><a href="/login">Sign In</a></li>
+            <li><a href="{{ url_for('home', user_id=session.get('user_id')) }}">Home</a></li>
+            <li><a href="{{ url_for('about', user_id=session.get('user_id')) }}">About Us</a></li>
+            <li><a href="{{ url_for('insurance_form', user_id=session.get('user_id')) }}">Claim Insurance</a></li>
+            <li><a href="{{ url_for('login') }}">Sign In</a></li>
         </ul>
     </nav>
 
@@ -25,55 +25,126 @@
     </header>
 
     <!-- Section 1: Instructions to Use the Website -->
-<section id="instructions">
-    <h2>How to Use Our Website</h2>
-    <div class="box-container">
-        <div class="box">
-            <h2>Sign Up with Your Details</h2>
-            <p>Create an account by providing your name, email, phone number, and a secure password. Your information is safe with us, and you can easily manage your profile anytime.</p>
-            <p>Signing up ensures you have access to all our services, including car insurance applications, status tracking, and policy management.</p>
+    <section id="instructions">
+        <h2>How to Use Our Website</h2>
+        <div class="box-container">
+            <div class="box">
+                <h2>Sign Up with Your Details</h2>
+                <p>Create an account by providing your name, email, phone number, and a secure password. Your information is safe with us, and you can easily manage your profile anytime.</p>
+                <p>Signing up ensures you have access to all our services, including car insurance applications, status tracking, and policy management.</p>
+            </div>
+            <div class="box">
+                <h2>Enter Your Car Details</h2>
+                <p>Provide detailed information about your vehicle, including make, model, year, and registration number. Upload multi-view images of your car for accurate verification and evaluation.</p>
+                <p>You can add one or more vehicles, each with comprehensive details and images to ensure proper insurance coverage.</p>
+            </div>
+            <div class="box">
+                <h2>Verification and Policy Selection</h2>
+                <p>Once your car details are verified by our team, you will receive an email notification. This email will guide you to choose the most suitable insurance policy from our available options.</p>
+                <p>We ensure a seamless process from verification to policy selection, giving you the best insurance experience.</p>
+            </div>
         </div>
-        <div class="box">
-            <h2>Enter Your Car Details</h2>
-            <p>Provide detailed information about your vehicle, including make, model, year, and registration number. Upload multi-view images of your car for accurate verification and evaluation.</p>
-            <p>You can add one or more vehicles, each with comprehensive details and images to ensure proper insurance coverage.</p>
-        </div>
-        <div class="box">
-            <h2>Verification and Policy Selection</h2>
-            <p>Once your car details are verified by our team, you will receive an email notification. This email will guide you to choose the most suitable insurance policy from our available options.</p>
-            <p>We ensure a seamless process from verification to policy selection, giving you the best insurance experience.</p>
-        </div>
-    </div>
-</section>
+    </section>
 
-<!-- Section 2: Insurance Packages -->
-<section id="insurance-packages">
-    <h2>Available Insurance Packages</h2>
-    <div class="box-container">
-        <div class="box">
-            <h2>Basic Third-Party Insurance</h2>
-            <p><strong>Coverage:</strong> Covers damages to third-party property, injury, or death.</p>
-            <p><strong>Premium:</strong> ₹7,000 - ₹15,000 annually.</p>
-            <p><strong>Deductible:</strong> ₹5,000.</p>
-            <p><strong>Ideal for:</strong> Minimum legal requirement and cost-effective solution.</p>
-        </div>
-        <div class="box">
-            <h2>Own Damage Insurance</h2>
-            <p><strong>Coverage:</strong> Covers damage to your vehicle due to accidents, fire, theft, and natural disasters.</p>
-            <p><strong>Premium:</strong> ₹12,000 - ₹25,000 annually.</p>
-            <p><strong>Deductible:</strong> ₹5,000 - ₹10,000.</p>
-            <p><strong>Ideal for:</strong> Vehicle owners seeking protection for their own vehicle.</p>
-        </div>
-        <div class="box">
-            <h2>Comprehensive Insurance</h2>
-            <p><strong>Coverage:</strong> Covers own vehicle damage, third-party liabilities, theft, fire, and natural calamities.</p>
-            <p><strong>Premium:</strong> ₹20,000 - ₹50,000 annually.</p>
-            <p><strong>Deductible:</strong> ₹5,000 - ₹10,000.</p>
-            <p><strong>Benefits:</strong> Zero depreciation cover, roadside assistance, engine protection, and cashless claim settlements.</p>
-        </div>
-    </div>
-</section>
+    <!-- Section 2: Insurance Packages -->
+    <section class="insurance-section">
+        <h2>Insurance Categories</h2>
+        <div class="insurance-container">
+            <div class="insurance-box" data-package="Basic Third-Party Insurance">
+                <h2>Basic Third-Party Insurance</h2>
+                <div class="insurance-details">
+                    <div class="insurance-detail-item">
+                        <span class="detail-label">Coverage:</span>
+                        <span class="detail-value">Covers damages to third-party property, injury, or death.</span>
+                    </div>
+                    <div class="insurance-detail-item">
+                        <span class="detail-label">Premium:</span>
+                        <span class="detail-value">₹7,000 - ₹15,000 annually</span>
+                    </div>
+                    <div class="insurance-detail-item">
+                        <span class="detail-label">Deductible:</span>
+                        <span class="detail-value">₹5,000</span>
+                    </div>
+                    <div class="insurance-detail-item">
+                        <span class="detail-label">Ideal for:</span>
+                        <span class="detail-value">Minimum legal requirement and cost-effective solution</span>
+                    </div>
+                    <button class="select-button" onclick="redirectToInsuranceForm('Basic Third-Party Insurance')">Select Package</button>
+                </div>
+            </div>
 
+            <div class="insurance-box" data-package="Own Damage Insurance">
+                <h2>Own Damage Insurance</h2>
+                <div class="insurance-details">
+                    <div class="insurance-detail-item">
+                        <span class="detail-label">Coverage:</span>
+                        <span class="detail-value">Covers damage to your vehicle due to accidents, fire, theft, and natural disasters.</span>
+                    </div>
+                    <div class="insurance-detail-item">
+                        <span class="detail-label">Premium:</span>
+                        <span class="detail-value">₹12,000 - ₹25,000 annually</span>
+                    </div>
+                    <div class="insurance-detail-item">
+                        <span class="detail-label">Deductible:</span>
+                        <span class="detail-value">₹5,000 - ₹10,000</span>
+                    </div>
+                    <div class="insurance-detail-item">
+                        <span class="detail-label">Ideal for:</span>
+                        <span class="detail-value">Vehicle owners seeking protection for their own vehicle</span>
+                    </div>
+                    <button class="select-button" onclick="redirectToInsuranceForm('Own Damage Insurance')">Select Package</button>
+                </div>
+            </div>
+
+            <div class="insurance-box" data-package="Comprehensive Insurance">
+                <h2>Comprehensive Insurance</h2>
+                <div class="insurance-details">
+                    <div class="insurance-detail-item">
+                        <span class="detail-label">Coverage:</span>
+                        <span class="detail-value">Covers own vehicle damage, third-party liabilities, theft, fire, and natural calamities</span>
+                    </div>
+                    <div class="insurance-detail-item">
+                        <span class="detail-label">Premium:</span>
+                        <span class="detail-value">₹20,000 - ₹50,000 annually</span>
+                    </div>
+                    <div class="insurance-detail-item">
+                        <span class="detail-label">Deductible:</span>
+                        <span class="detail-value">₹5,000 - ₹10,000</span>
+                    </div>
+                    <div class="insurance-detail-item">
+                        <span class="detail-label">Benefits:</span>
+                        <span class="detail-value">Zero depreciation cover, roadside assistance, engine protection, and cashless claim settlements</span>
+                    </div>
+                    <button class="select-button" onclick="redirectToInsuranceForm('Comprehensive Insurance')">Select Package</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function redirectToInsuranceForm(packageType) {
+            // Log the packageType for debugging
+            console.log("Package Type:", packageType);
+    
+            // Extract the user_id from the query parameters
+            const currentUrl = new URL(window.location.href);
+            const user_id = currentUrl.searchParams.get('user_id'); // Get user_id from query params
+            console.log("Extracted User ID:", user_id); // Log the extracted user_id
+    
+            // Validate user_id
+            if (!user_id || isNaN(user_id)) {
+                console.error("Invalid user_id:", user_id);
+                alert("Invalid user ID. Please try again.");
+                return; // Stop execution if user_id is invalid
+            }
+    
+            // Construct the new URL with user_id and packageType
+            const newUrl = `/insurance-form/${user_id}?package=${encodeURIComponent(packageType)}`;
+            console.log("New URL:", newUrl); // Log the constructed URL
+    
+            // Redirect to the new URL
+            window.location.href = newUrl;
+        }
+    </script>
 </body>
-
 </html>

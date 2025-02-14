@@ -5,11 +5,12 @@ body {
     padding: 0;
     background: linear-gradient(135deg, #99bad7, #8aaacd, #546e8b);
     color: #333;
+    scroll-behavior: smooth;
 }
 
-/* Navigation Bar */
+/* Enhanced Navigation Bar */
 nav {
-    background: linear-gradient(to bottom, #ffffff, #b8c9ec);
+    background: linear-gradient(to right, #ffffff, #b8c9ec);
     display: flex;
     justify-content: space-between;
     padding: 20px 50px;
@@ -17,18 +18,31 @@ nav {
     position: sticky;
     top: 0;
     z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+nav:hover {
+    background: linear-gradient(to left, #ffffff, #b8c9ec);
 }
 
 nav .logo {
     font-size: 2rem;
     font-weight: bold;
     color: #0056b3;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+nav .logo:hover {
+    transform: scale(1.05);
+    color: #003366;
 }
 
 nav ul {
     list-style: none;
     display: flex;
     gap: 25px;
+    align-items: center;
 }
 
 nav ul li a {
@@ -36,14 +50,34 @@ nav ul li a {
     color: #0056b3;
     font-size: 1.2rem;
     font-weight: 500;
-    transition: color 0.3s;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #0056b3;
+    transition: width 0.3s ease;
+}
+
+nav ul li a:hover::after {
+    width: 100%;
 }
 
 nav ul li a:hover {
     color: #003366;
+    background: rgba(0,86,179,0.1);
+    transform: translateY(-2px);
 }
 
-/* Hero Section */
+/* Enhanced Hero Section */
 header {
     height: 100vh;
     background: url('img_car.jpg') no-repeat center center/cover;
@@ -53,6 +87,7 @@ header {
     text-align: center;
     color: white;
     position: relative;
+    overflow: hidden;
 }
 
 header::before {
@@ -60,6 +95,24 @@ header::before {
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
     background-color: rgba(0, 0, 0, 0.5);
+    transition: background-color 0.3s ease;
+}
+
+header:hover::before {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.hero {
+    transform: translateY(20px);
+    opacity: 0;
+    animation: fadeInUp 1s ease forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 .hero h1 {
@@ -67,6 +120,11 @@ header::before {
     margin-bottom: 20px;
     position: relative;
     z-index: 1;
+    transition: transform 0.3s ease;
+}
+
+.hero h1:hover {
+    transform: scale(1.05);
 }
 
 .hero p {
@@ -76,9 +134,15 @@ header::before {
     background: rgba(255, 255, 255, 0.7);
     padding: 10px 20px;
     border-radius: 5px;
+    transition: all 0.3s ease;
 }
 
-/* Section Boxes */
+.hero p:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: scale(1.05);
+}
+
+/* Enhanced Section Boxes */
 section {
     padding: 50px 20px;
     text-align: center;
@@ -86,49 +150,228 @@ section {
 
 .box-container {
     display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    padding: 5px;
-    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
 }
 
 .box {
-    background-color: #ffffffc5;
+    background-color: rgba(255, 255, 255, 0.9);
     padding: 30px;
+    cursor: pointer;
     border-radius: 10px;
-    width: 28%; /* Ensures 3 boxes fit in one row */
+    min-width: 300px;
+    max-width: 400px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-    min-height: 300px; /* Adjusted height to avoid too much space */
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to right, #0056b3, #00a0b3);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.box:hover::before {
+    transform: scaleX(1);
 }
 
 .box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+    background-color: #ffffff;
 }
 
 .box h2 {
     font-size: 1.5rem;
     margin-bottom: 15px;
     color: #0056b3;
+    transition: color 0.3s ease;
+}
+
+.box:hover h2 {
+    color: #003366;
 }
 
 .box p {
     font-size: 1rem;
-    line-height: 1.4;
-    margin-bottom: 10px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+    opacity: 0.9;
 }
 
-/* Responsive Design */
-/* Responsive Adjustments for Smaller Screens */
-@media (max-width: 1024px) {
-    .box {
-        width: 45%;
+.box:hover p {
+    opacity: 1;
+}
+
+/* Enhanced Insurance Section */
+.insurance-section {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.insurance-section h2 {
+    font-size: 2.5rem;
+    color: #0056b3;
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.insurance-section h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, #0056b3, #00a0b3);
+    border-radius: 2px;
+}
+
+.insurance-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.insurance-box {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 30px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid transparent;
+    overflow: hidden;
+}
+
+.insurance-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0, 86, 179, 0.1), rgba(0, 160, 179, 0.1));
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 0;
+}
+
+.insurance-box:hover {
+    transform: translateY(-10px);
+    border-color: #0056b3;
+    box-shadow: 0 20px 40px rgba(0, 86, 179, 0.15);
+}
+
+.insurance-box:hover::before {
+    opacity: 1;
+}
+
+.insurance-box h2 {
+    font-size: 1.8rem;
+    color: #0056b3;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.insurance-details {
+    position: relative;
+    z-index: 1;
+    opacity: 0.9;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+}
+
+.insurance-box:hover .insurance-details {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.insurance-detail-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.insurance-detail-item:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: translateX(10px);
+}
+
+.detail-label {
+    font-weight: bold;
+    color: #0056b3;
+    min-width: 120px;
+    margin-right: 15px;
+}
+
+.detail-value {
+    color: #333;
+    flex: 1;
+}
+
+.select-button {
+    margin-top: 20px;
+    padding: 12px 25px;
+    background: linear-gradient(135deg, #0056b3, #00a0b3);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.insurance-box:hover .select-button {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.select-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 86, 179, 0.3);
+}
+
+@media (max-width: 768px) {
+    .insurance-section {
+        padding: 10px;
     }
-}
-
-@media (max-width: 600px) {
-    .box {
-        width: 100%;
+    
+    .insurance-box {
+        padding: 20px;
+    }
+    
+    .insurance-detail-item {
+        flex-direction: column;
+    }
+    
+    .detail-label {
+        margin-bottom: 5px;
     }
 }
