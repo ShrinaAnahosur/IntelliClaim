@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claim Insurance</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <nav>
+        <div class="logo">IntelliClaim</div>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/claim">Claim Insurance</a></li>
+            <li><a href="/login">Sign In</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2>Submit Your Claim</h2>
+        <form action="/submit_claim" method="POST" enctype="multipart/form-data">
+            <label>Car Make:</label>
+            <input type="text" name="make" required>
+
+            <label>Model:</label>
+            <input type="text" name="model" required>
+
+            <label>Year:</label>
+            <input type="number" name="year" required>
+
+            <label>Registration Number:</label>
+            <input type="text" name="reg_number" required>
+
+            <label>Owner Name:</label>
+            <input type="text" name="owner" required>
+
+            <label>Damage Description:</label>
+            <textarea name="damage_desc" required></textarea>
+
+            <label>Upload Damage Photo:</label>
+            <input type="file" name="damage_photo" required>
+
+            <button type="submit" class="btn">Submit Claim</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>© 2025 IntelliClaim. All rights reserved.</p>
+    </footer>
+</body>
+</html>
