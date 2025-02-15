@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request, session, flash, jsonify
+from flask import Flask, render_template, redirect, url_for, request, session, flash, jsonify, json
 from flask_mysqldb import MySQL
 import logging
 import os
@@ -232,10 +232,10 @@ def submit_claim():
         return redirect(url_for('login'))
 
     user_id = session['user_id']
-    car_id = request.form.get("car_id")  # Get car_id from the form
+    car_id = request.form.get("car_id")
     damage_description = request.form.get("damage_description")
     damage_cause = request.form.get("damage_cause")
-    damaged_parts = request.form.getlist("damaged_parts")  # Get list of damaged parts
+    damaged_parts = request.form.getlist("damaged_parts[]")  # Retrieve as a list
     damage_images = request.files.getlist("damage_images")
 
     try:
@@ -252,13 +252,20 @@ def submit_claim():
                 filename = secure_filename(image.filename)
                 image.save(os.path.join(claim_folder, filename))
 
+        # Serialize the damaged_parts list to JSON
+        damaged_parts_json = json.dumps(damaged_parts)
+
+        # Log the JSON data for debugging
+        logger.info(f"Damaged parts: {damaged_parts}")
+        logger.info(f"Damaged parts JSON: {damaged_parts_json}")
+
         # Insert claim details into the database
         cursor = mysql.connection.cursor()
         query = """
         INSERT INTO claims (car_id, user_id, damage_description, damage_cause, damaged_parts)
         VALUES (%s, %s, %s, %s, %s)
         """
-        cursor.execute(query, (car_id, user_id, damage_description, damage_cause, json.dumps(damaged_parts)))
+        cursor.execute(query, (car_id, user_id, damage_description, damage_cause, damaged_parts_json))
         mysql.connection.commit()
         cursor.close()
 
@@ -267,7 +274,9 @@ def submit_claim():
     except Exception as e:
         logger.error(f"Error submitting claim: {e}")
         flash("An error occurred while submitting your claim. Please try again.")
-        return redirect(url_for('claim_step2', car_id=car_id))  # Pass car_id here
+        return redirect(url_for('claim_step2', car_id=car_id))
+    
+
 @app.route('/insurance-form/<int:user_id>')
 def insurance_form(user_id):
     # Log the received user_id
