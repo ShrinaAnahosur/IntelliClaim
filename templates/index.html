@@ -12,7 +12,7 @@
         <ul>
             <li><a href="{{ url_for('home', user_id=session.get('user_id')) }}">Home</a></li>
             <li><a href="{{ url_for('about', user_id=session.get('user_id')) }}">About Us</a></li>
-            <li><a href="{{ url_for('insurance_form', user_id=session.get('user_id')) }}">Claim Insurance</a></li>
+            <li><a href="{{ url_for('claim_step1', user_id=session.get('user_id')) }}">Claim Insurance</a></li>
             <li><a href="{{ url_for('login') }}">Sign In</a></li>
         </ul>
     </nav>
@@ -120,7 +120,9 @@
             </div>
         </div>
     </section>
-
+    <footer>
+        <p>&copy; 2025 IntelliClaim. All rights reserved.</p>
+    </footer>
     <script>
         function redirectToInsuranceForm(packageType) {
             // Log the packageType for debugging
@@ -146,5 +148,24 @@
             window.location.href = newUrl;
         }
     </script>
+
+    <!-- Chatbot Section -->
+    <div id="chat-container">
+        <div id="chat-header">
+            <h3>Chat with IntelliClaim AI</h3>
+            <button id="close-chat">×</button>
+        </div>
+        <div id="chat-box">
+            <div id="chat-messages"></div>
+        </div>
+        <div id="chat-input-container">
+            <input type="text" id="chat-input" placeholder="Ask me anything..." />
+            <button id="send-btn">Send</button>
+        </div>
+    </div>
+
+    <button id="chat-toggle">💬 Chat with Us</button>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

@@ -362,7 +362,7 @@
         <ul>
             <li><a href="{{ url_for('home', user_id=session.get('user_id')) }}">Home</a></li>
             <li><a href="{{ url_for('about', user_id=session.get('user_id')) }}">About Us</a></li>
-            <li><a href="{{ url_for('insurance_form', user_id=session.get('user_id')) }}">Claim Insurance</a></li>
+            <li><a href="{{ url_for('claim_step1', user_id=session.get('user_id')) }}">Claim Insurance</a></li>
             <li><a href="{{ url_for('login') }}">Sign In</a></li>
         </ul>
     </nav>

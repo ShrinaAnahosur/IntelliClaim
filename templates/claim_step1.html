@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claim Insurance - Step 1</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <nav>
+        <div class="logo">IntelliClaim</div>
+        <ul>
+            <li><a href="{{ url_for('home', user_id=session.get('user_id')) }}">Home</a></li>
+            <li><a href="{{ url_for('about', user_id=session.get('user_id')) }}">About Us</a></li>
+            <li><a href="{{ url_for('claim_step1', user_id=session.get('user_id')) }}">Claim Insurance</a></li>
+            <li><a href="{{ url_for('login') }}">Sign In</a></li>
+        </ul>
+    </nav>
+
+    <div class="claim-container">
+        <h2>Claim Insurance - Step 1</h2>
+        <p>Select the car you want to claim insurance for:</p>
+
+        <!-- Display User's Cars -->
+        <div class="car-list">
+            {% if cars %}
+                {% for car in cars %}
+                    <div class="car-box" data-car-id="{{ car[0] }}">
+                        <div class="car-info">
+                            <span class="car-registration">{{ car[1] }}</span> : 
+                            <span class="car-make">{{ car[2] }}</span>
+                        </div>
+                        <div class="insurance-type">
+                            Insurance Type: {{ car[3] }}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No cars found. Please add a car to claim insurance.</p>
+            {% endif %}
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const carBoxes = document.querySelectorAll(".car-box");
+            carBoxes.forEach((carBox) => {
+                carBox.addEventListener("click", function () {
+                    const carId = carBox.getAttribute("data-car-id");
+                    window.location.href = `/claim_step2/${carId}`;
+                });
+            });
+        });
+    </script>
+    <footer>
+        <p>&copy; 2025 IntelliClaim. All rights reserved.</p>
+    </footer>
+</body>
+</html>

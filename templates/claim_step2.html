@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claim Insurance - Step 2</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <nav>
+        <div class="logo">IntelliClaim</div>
+        <ul>
+            <li><a href="{{ url_for('home', user_id=session.get('user_id')) }}">Home</a></li>
+            <li><a href="{{ url_for('about', user_id=session.get('user_id')) }}">About Us</a></li>
+            <li><a href="{{ url_for('claim_step1', user_id=session.get('user_id')) }}">Claim Insurance</a></li>
+            <li><a href="{{ url_for('login') }}">Sign In</a></li>
+        </ul>
+    </nav>
+
+    <div class="claim-container">
+        <h2>Claim Insurance - Step 2</h2>
+
+        <!-- Display Car Details -->
+        <div class="car-details">
+            <h3>Car Details</h3>
+            <div class="detail">
+                <span class="label">Car Registration:</span>
+                <span class="value">{{ car[1] }}</span>
+            </div>
+            <div class="detail">
+                <span class="label">Car Make:</span>
+                <span class="value">{{ car[2] }}</span>
+            </div>
+            <div class="detail">
+                <span class="label">Car Model:</span>
+                <span class="value">{{ car[3] }}</span>
+            </div>
+            <div class="detail">
+                <span class="label">Car Year:</span>
+                <span class="value">{{ car[4] }}</span>
+            </div>
+            <div class="detail">
+                <span class="label">Insurance Type:</span>
+                <span class="value">{{ car[5] }}</span>
+            </div>
+            <div class="detail">
+                <span class="label">Deductible Amount:</span>
+                <span class="value">{{ car[6] }}</span>
+            </div>
+        </div>
+
+        <!-- Damage Details Form -->
+        <form id="claim-form" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="car_id" value="{{ car[0] }}"> <!-- Add car_id as a hidden field -->
+        
+            <h3>Damage Details</h3>
+        
+            <div class="form-group">
+                <label for="damage_description">Damage Description</label>
+                <textarea id="damage_description" name="damage_description" placeholder="Describe the damage..." required></textarea>
+            </div>
+        
+            <div class="form-group">
+                <label for="damage_cause">How Did the Damage Occur?</label>
+                <textarea id="damage_cause" name="damage_cause" placeholder="Explain how the damage occurred..." required></textarea>
+            </div>
+        
+            <div class="form-group">
+                <label for="damage_images">Upload Pictures of the Damage</label>
+                <input type="file" id="damage_images" name="damage_images" accept="image/*" multiple required>
+            </div>
+        
+            <div class="form-group">
+                <label>Select Parts of Car Damaged</label>
+                <div class="parts-list">
+                    <div class="part-item">
+                        <input type="checkbox" id="part1" name="damaged_parts" value="Front Bumper">
+                        <label for="part1">Front Bumper</label>
+                    </div>
+                    <div class="part-item">
+                        <input type="checkbox" id="part2" name="damaged_parts" value="Rear Bumper">
+                        <label for="part2">Rear Bumper</label>
+                    </div>
+                    <div class="part-item">
+                        <input type="checkbox" id="part3" name="damaged_parts" value="Headlight">
+                        <label for="part3">Headlight</label>
+                    </div>
+                    <div class="part-item">
+                        <input type="checkbox" id="part4" name="damaged_parts" value="Taillight">
+                        <label for="part4">Taillight</label>
+                    </div>
+                    <div class="part-item">
+                        <input type="checkbox" id="part5" name="damaged_parts" value="Windshield">
+                        <label for="part5">Windshield</label>
+                    </div>
+                    <div class="part-item">
+                        <input type="checkbox" id="part6" name="damaged_parts" value="Side Mirror">
+                        <label for="part6">Side Mirror</label>
+                    </div>
+                </div>
+            </div>
+        
+            <button type="submit">Submit Claim</button>
+        </form>
+        
+    </div>
+
+    <script>
+        document.getElementById("claim-form").addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent the default form submission
+    
+            // Submit the form data via POST
+            const form = document.getElementById("claim-form");
+            const formData = new FormData(form);
+    
+            fetch("{{ url_for('submit_claim') }}", {
+                method: "POST",
+                body: formData,
+            })
+            .then(response => {
+                if (response.redirected) {
+                    window.location.href = response.url; // Redirect to the URL provided by the server
+                }
+            })
+            .catch(error => {
+                console.error("Error submitting claim:", error);
+            });
+        });
+    </script>
+
+    <footer>
+        <p>&copy; 2025 IntelliClaim. All rights reserved.</p>
+    </footer>
+</body>
+</html>
